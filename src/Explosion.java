@@ -1,7 +1,18 @@
 import java.awt.image.BufferedImage;
 
+/**
+ * Explosion Animation
+ * Creating this will create an
+ * explosion effect on screen at a
+ * specific x,y location
+ *
+ */
+
 public class Explosion extends Animation {
 
+    /**
+     * Constructor
+     */
     private static String[] filePaths = { "files/explosion/explosion1.png",
                                           "files/explosion/explosion2.png", 
                                           "files/explosion/explosion3.png",

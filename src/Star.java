@@ -51,8 +51,7 @@ public class Star extends BackgroundObject {
             float alpha = (float) (brightness + Math.cos(step / 10) * brightness / 4);
             alpha = Math.min(Math.max(alpha, 0.0f), 1.0f);
             color = new Color(1.0f, 1.0f, 1.0f, alpha);
-//      size = (int) Math.round(this.getWidth() + Math.cos(step / 10) * this.getWidth() / 6);
-            size = this.getWidth();
+            size = (int) Math.round(this.getWidth() + Math.cos(step / 10) * this.getWidth() / 6);
         } else {
             size = this.getWidth();
         }

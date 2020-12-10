@@ -27,19 +27,16 @@ import javax.swing.*;
 @SuppressWarnings("serial")
 public class GameCourt extends JPanel {
 
-    // the state of the game logic
-    private Ship playerShip; // the Black Square, keyboard control
+    //The current player
+    private Ship playerShip;
 
-    // background elements
-
-    private GameState state = GameState.NORMAL; // whether the game is running
+    private GameState state = GameState.NORMAL; // the state the game is in
     private JLabel status; // Current status text, i.e. "Running..."
     private JFrame frame; // Top-level frame component
 
     // Game constants
     public static final int COURT_WIDTH = 1024;
     public static final int COURT_HEIGHT = 576;
-    public static final float ACCELERATION = 0.05f;
 
     // Update interval for timer, in milliseconds
     public static final int INTERVAL = 16;
@@ -146,55 +143,55 @@ public class GameCourt extends JPanel {
                     }
 
                     switch (e.getKeyCode()) {
-                    case KeyEvent.VK_1:
-                        newNotification(currentShop.repairShip());
-                        break;
-                    case KeyEvent.VK_2:
-                        newNotification(currentShop.refuelShip());
-                        break;
-                    case KeyEvent.VK_3:
-                        newNotification(currentShop.upgradeHull());
-                        break;
-                    case KeyEvent.VK_4:
-                        newNotification(currentShop.upgradeFuelTank());
-                        break;
-                    case KeyEvent.VK_5:
-                        newNotification(currentShop.upgradePowerSystem());
-                        break;
-                    case KeyEvent.VK_Q:
-                        newNotification(currentShop.buyIron(10));
-                        break;
-                    case KeyEvent.VK_A:
-                        newNotification(currentShop.sellIron(1));
-                        break;
-                    case KeyEvent.VK_Z:
-                        newNotification(currentShop.sellIron(Integer.MAX_VALUE));
-                        break;
-                    case KeyEvent.VK_W:
-                        newNotification(currentShop.buySilver(10));
-                        break;
-                    case KeyEvent.VK_S:
-                        newNotification(currentShop.sellSilver(1));
-                        break;
-                    case KeyEvent.VK_X:
-                        newNotification(currentShop.sellSilver(Integer.MAX_VALUE));
-                        break;
-                    case KeyEvent.VK_E:
-                        newNotification(currentShop.buyGold(10));
-                        break;
-                    case KeyEvent.VK_D:
-                        newNotification(currentShop.sellGold(1));
-                        break;
-                    case KeyEvent.VK_C:
-                        newNotification(currentShop.sellGold(Integer.MAX_VALUE));
-                        break;
-                    case KeyEvent.VK_R:
-                        newNotification(currentShop.sellGold(Integer.MAX_VALUE));
-                        newNotification(currentShop.sellSilver(Integer.MAX_VALUE));
-                        newNotification(currentShop.sellIron(Integer.MAX_VALUE));
-                        break;
-                    default:
-                        break;
+                        case KeyEvent.VK_1:
+                            newNotification(currentShop.repairShip());
+                            break;
+                        case KeyEvent.VK_2:
+                            newNotification(currentShop.refuelShip());
+                            break;
+                        case KeyEvent.VK_3:
+                            newNotification(currentShop.upgradeHull());
+                            break;
+                        case KeyEvent.VK_4:
+                            newNotification(currentShop.upgradeFuelTank());
+                            break;
+                        case KeyEvent.VK_5:
+                            newNotification(currentShop.upgradePowerSystem());
+                            break;
+                        case KeyEvent.VK_Q:
+                            newNotification(currentShop.buyIron(10));
+                            break;
+                        case KeyEvent.VK_A:
+                            newNotification(currentShop.sellIron(1));
+                            break;
+                        case KeyEvent.VK_Z:
+                            newNotification(currentShop.sellIron(Integer.MAX_VALUE));
+                            break;
+                        case KeyEvent.VK_W:
+                            newNotification(currentShop.buySilver(10));
+                            break;
+                        case KeyEvent.VK_S:
+                            newNotification(currentShop.sellSilver(1));
+                            break;
+                        case KeyEvent.VK_X:
+                            newNotification(currentShop.sellSilver(Integer.MAX_VALUE));
+                            break;
+                        case KeyEvent.VK_E:
+                            newNotification(currentShop.buyGold(10));
+                            break;
+                        case KeyEvent.VK_D:
+                            newNotification(currentShop.sellGold(1));
+                            break;
+                        case KeyEvent.VK_C:
+                            newNotification(currentShop.sellGold(Integer.MAX_VALUE));
+                            break;
+                        case KeyEvent.VK_R:
+                            newNotification(currentShop.sellGold(Integer.MAX_VALUE));
+                            newNotification(currentShop.sellSilver(Integer.MAX_VALUE));
+                            newNotification(currentShop.sellIron(Integer.MAX_VALUE));
+                            break;
+                        default:
+                            break;
 
                     }
 
@@ -215,7 +212,7 @@ public class GameCourt extends JPanel {
     public void reset() {
         playerShip = new Ship(this);
         galacticEconomy = new Economy();
-        notificationBox = new TextBox(5, 20, new ArrayList<String>());
+        notificationBox = new TextBox(5, 20);
         playerInfo = new PlayerInfo(5, 130, playerShip);
         map = new GalaxyMap(5, 375, this);
 
@@ -258,7 +255,7 @@ public class GameCourt extends JPanel {
 
         playerShip = loadedPlayer;
         galacticEconomy = new Economy();
-        notificationBox = new TextBox(5, 20, new ArrayList<String>());
+        notificationBox = new TextBox(5, 20);
         playerInfo = new PlayerInfo(5, 130, playerShip);
         map = new GalaxyMap(5, 375, this);
 
@@ -333,11 +330,11 @@ public class GameCourt extends JPanel {
                 }
                 if (key == KeyEvent.VK_DOWN || key == KeyEvent.VK_S) {
                     playerShip.addAcceleration(
-                            new Vector(-ACCELERATION / 3, playerShip.getRotationalAngle()));
+                            new Vector(-Ship.JERK / 3, playerShip.getRotationalAngle()));
                 }
                 if (key == KeyEvent.VK_UP || key == KeyEvent.VK_W) {
                     playerShip.addAcceleration(
-                            new Vector(ACCELERATION, playerShip.getRotationalAngle()));
+                            new Vector(Ship.JERK, playerShip.getRotationalAngle()));
                 }
 
                 if (key == KeyEvent.VK_SHIFT) {
@@ -358,6 +355,10 @@ public class GameCourt extends JPanel {
 
     }
 
+    
+    /**
+     * Gets every entity in the scene as a flat ArrayList
+     */
     public ArrayList<Entity> getAllEntities() {
 
         ArrayList<Entity> allEntities = new ArrayList<Entity>();
@@ -431,20 +432,20 @@ public class GameCourt extends JPanel {
         }
 
         switch (dir) {
-        case NORTH:
-            travelToSystem(systemCoordX, systemCoordY - 1);
-            return true;
-        case SOUTH:
-            travelToSystem(systemCoordX, systemCoordY + 1);
-            return true;
-        case WEST:
-            travelToSystem(systemCoordX - 1, systemCoordY);
-            return true;
-        case EAST:
-            travelToSystem(systemCoordX + 1, systemCoordY);
-            return true;
-        default:
-            return false;
+            case NORTH:
+                travelToSystem(systemCoordX, systemCoordY - 1);
+                return true;
+            case SOUTH:
+                travelToSystem(systemCoordX, systemCoordY + 1);
+                return true;
+            case WEST:
+                travelToSystem(systemCoordX - 1, systemCoordY);
+                return true;
+            case EAST:
+                travelToSystem(systemCoordX + 1, systemCoordY);
+                return true;
+            default:
+                return false;
         }
 
     }

@@ -30,12 +30,14 @@ public class Game implements Runnable {
         final GameCourt court = new GameCourt(frame, status);
         frame.add(court, BorderLayout.CENTER);
 
-        GameFileParser parser = new GameFileParser();
+        //Layer that allows for IO for saving/loading games
+        GameFileLayer parser = new GameFileLayer();
 
         // Reset button
         final JPanel control_panel = new JPanel();
         frame.add(control_panel, BorderLayout.NORTH);
 
+        //Instruction panels
         final JButton help = new JButton("Instructions");
         help.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -76,6 +78,7 @@ public class Game implements Runnable {
         });
         control_panel.add(reset);
 
+        //Saves game data to a file
         final JButton save = new JButton("Save");
         save.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -111,6 +114,7 @@ public class Game implements Runnable {
         });
         control_panel.add(save);
 
+        //Loads game data from file
         final JButton load = new JButton("Load");
         load.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -152,7 +156,6 @@ public class Game implements Runnable {
      * this in your final submission.
      */
     public static void main(String[] args) {
-
         SwingUtilities.invokeLater(new Game());
     }
 }

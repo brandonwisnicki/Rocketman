@@ -2,27 +2,33 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Set;
 
-public class PlayerInfo {
+/**
+ * User Interface for all player information such as health, fuel, power,
+ * credits, and current inventory.
+ */
 
-    int px;
-    int py;
-    Color bgColor;
-    Color borderColor;
-    Color textColor;
+public class PlayerInfo extends UserInterface {
 
     Ship player;
 
     public PlayerInfo(int px, int py, Ship player) {
-
-        bgColor = Color.DARK_GRAY;
-        borderColor = Color.WHITE;
-        textColor = Color.WHITE;
-        this.px = px;
-        this.py = py;
-
+        super(px, py, 250, 235);
         this.player = player;
     }
 
+    /**
+     * Draws an a segemented progress bar on screen for fuel, health, and power
+     * 
+     * @param label:           Text to display next to progress bar
+     * @param g:               Graphics object
+     * @param x:               x location
+     * @param y:               y location
+     * @param current:         current value of progress bar
+     * @param max:             maximum value of progress bar
+     * @param divider:         number of units each bar should be
+     * @param yellowIndicator: threshold for when bar should be colored yellow
+     * @param redWarning:      threshold for when bar should be colored red
+     */
     public void drawIndicator(String label, Graphics g, int x, int y, float current, float max,
             float divider, int yellowIndicator, int redWarning) {
         float percentage = current / max;
@@ -31,7 +37,7 @@ public class PlayerInfo {
 
         int fullHealthBoxes = (int) (percentage * boxCount);
         int boxWidth = 175 / boxCount - 5;
-
+        g.setColor(this.getTextColor());
         g.drawString("> " + label, x, y + 9);
         int currentX = x + 55;
         for (int i = 0; i < boxCount; i++) {
@@ -58,7 +64,7 @@ public class PlayerInfo {
                 g.fillRect(currentX, y, (int) ((current % divider) / divider * boxWidth), 10);
 
             } else {
-                g.setColor(Color.WHITE);
+                g.setColor(this.getBorderColor());
 
                 g.drawRect(currentX, y, boxWidth, 10);
 
@@ -67,13 +73,20 @@ public class PlayerInfo {
         }
     }
 
+    /**
+     * Draws inventory to screen
+     * 
+     * @param g:         graphics object
+     * @param inventory: a set of inventory items
+     * @param x:         x location
+     * @param y:         y location
+     */
     public void drawInventory(Graphics g, Set<Item> inventory, int x, int y) {
 
         g.drawRect(x, y + 5, 225, 100);
         int yOffset = y + 20;
         int xOffset = x + 10;
 
-        int i = 1;
         for (Item item : inventory) {
             if (xOffset > 200) {
                 yOffset += 100;
@@ -83,32 +96,34 @@ public class PlayerInfo {
             item.draw(xOffset, yOffset, g);
 
             xOffset += 70;
-            i++;
 
         }
     }
 
+    /**
+     * Draws player info to screen
+     */
+    @Override
     public void draw(Graphics g) {
 
-        g.setColor(borderColor);
-        g.drawRect(px, py, 250, 235);
-        g.drawRect(px + 5, py + 5, 240, 225);
+        this.drawBorder(g);
 
-        g.drawString("Ship", px + 10, py + 20);
+        g.drawString("Ship", this.getXPixel() + 10, this.getYPixel() + 20);
 
-        drawIndicator("Health", g, px + 10, py + 35, player.getCurrentHealth(),
-                player.getMaxHealth(), 5.0f, 4, 2);
+        drawIndicator("Health", g, this.getXPixel() + 10, this.getYPixel() + 35,
+                player.getCurrentHealth(), player.getMaxHealth(), 5.0f, 4, 2);
 
-        drawIndicator("Fuel", g, px + 10, py + 60, player.getFuel(), player.getMaxFuel(), 1.0f, 5,
-                3);
+        drawIndicator("Fuel", g, this.getXPixel() + 10, this.getYPixel() + 60, player.getFuel(),
+                player.getMaxFuel(), 1.0f, 5, 3);
 
-        drawIndicator("Power", g, px + 10, py + 85, player.getPower(), player.getMaxPower(), 2f, 5,
-                2);
+        drawIndicator("Power", g, this.getXPixel() + 10, this.getYPixel() + 85, player.getPower(),
+                player.getMaxPower(), 2f, 5, 2);
 
-        g.setColor(Color.WHITE);
-        g.drawString("> Credits: " + this.player.getCredits() + " ¤", px + 10, py + 115);
+        g.setColor(this.getTextColor());
+        g.drawString("> Credits: " + this.player.getCredits() + " ¤", this.getXPixel() + 10,
+                this.getYPixel() + 115);
 
-        drawInventory(g, this.player.getInventory(), px + 10, py + 120);
+        drawInventory(g, this.player.getInventory(), this.getXPixel() + 10, this.getYPixel() + 120);
 
     }
 

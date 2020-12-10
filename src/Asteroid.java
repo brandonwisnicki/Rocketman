@@ -11,6 +11,7 @@ import javax.imageio.ImageIO;
 
 public class Asteroid extends Entity {
 
+    
     public static final int HEIGHT = 64;
     public static final int WIDTH = 96;
     public static final float INIT_DIRECTIONAL_ANGLE = (float) (3.0 * Math.PI / 2);
@@ -18,12 +19,16 @@ public class Asteroid extends Entity {
     public static final int INIT_ACCELERATION_ANGLE = 0;
     public static final int INIT_MAX_ACCELERATION = 1;
     public static final int INIT_MAX_VELOCITY = 4;
-    public static final String ASTEROID1_SPRITE_FILE = "files/asteroids/asteroid1.png";
+    public static final String ASTEROID_SPRITE_FILE = "files/asteroids/asteroid1.png";
 
     private static BufferedImage asteroidSprite;
 
     private GameCourt court;
 
+    
+    //These variables represent how many frames until the collision functions should recheck.
+    //This is to prevent the same collision event from triggering an action multiple times
+    //i.e. only one item per asteroid destruction
     private static final int MAX_DISPOSE_BUFFER = 10;
     private int disposeBuffer;
 
@@ -42,7 +47,7 @@ public class Asteroid extends Entity {
                 INIT_MAX_ACCELERATION, INIT_MAX_VELOCITY);
         try {
             if (asteroidSprite == null) {
-                asteroidSprite = ImageIO.read(new File(ASTEROID1_SPRITE_FILE));
+                asteroidSprite = ImageIO.read(new File(ASTEROID_SPRITE_FILE));
             }
 
         } catch (IOException e) {
@@ -76,6 +81,7 @@ public class Asteroid extends Entity {
 
     }
 
+    // Returns whether of not the asteroid should be removed from the scenes
     public boolean shouldDispose() {
         if (disposeBuffer > 0) {
             disposeBuffer++;
@@ -92,12 +98,10 @@ public class Asteroid extends Entity {
                 this.getVelocityAngle(), court);
     }
 
-    @Override
-    public void handleHitWall() {
-        return;
-    }
-
-
+    //Checks every object in scene for collisions
+    //If collision and
+        //is a laser: decrease asteroid HP and if HP <= 0, destroy asteroid
+        //is an asteroid: elastic collision between the two objects
     @Override
     public void checkCollisions() {
 

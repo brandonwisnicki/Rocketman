@@ -1,5 +1,11 @@
 import java.util.Random;
 
+/***
+ * The Economy helps distribute costs and prices across
+ * the galaxy. All prices and supplies are based off a
+ * normal distribution with a ranged-random std. dev.
+ * that is generated at instantiation
+ */
 public class Economy {
 
     private float averageIronValue;
@@ -20,6 +26,9 @@ public class Economy {
     
     private Random rng;
 
+    /**
+     * Constructor
+     */
     public Economy() {
 
         /*

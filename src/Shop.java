@@ -73,6 +73,10 @@ public class Shop extends GameObject {
 
     }
 
+    
+    /**
+     * Constructor for loading a game
+     */
     public Shop(GameCourt court, int ironValue, int silverValue, int goldValue, int ironSupply,
             int silverSupply, int goldSupply, int credits, int costPerHP, int costPerGallon,
             int hullUpgradeCreditCost, int hullUpgradeIronCost, int fuelUpgradeCreditCost,
@@ -397,6 +401,10 @@ public class Shop extends GameObject {
 
     }
 
+    /**
+     * Getters
+     */
+    
     public int getIronSupply() {
         return ironSupply;
     }

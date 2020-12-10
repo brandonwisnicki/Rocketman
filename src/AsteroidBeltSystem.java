@@ -25,6 +25,7 @@ public class AsteroidBeltSystem extends PlanetarySystem {
         this.getControllers().add(new Spawner(asteroid, 1000, this));
     }
 
+    //This system has no overlay to draw
     @Override
     public void drawOverlay(Graphics g) {
         return;

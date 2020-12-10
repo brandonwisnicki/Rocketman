@@ -34,6 +34,7 @@ public class Ship extends Entity {
     public static final int INIT_ACCELERATION_ANGLE = 0;
     public static final int MAX_VELOCITY = 4;
     public static final int MAX_ACCELERATION = 1;
+    public static final float JERK = 0.05f;
 
     private static final String SHIP_SPRITE_FILE = "files/ship.png";
     private static final String FLAME_SPRITE_FILE = "files/flame.png";

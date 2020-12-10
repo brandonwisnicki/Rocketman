@@ -17,12 +17,8 @@ public class CelestialBody extends BackgroundObject {
     private static BufferedImage sunSprite;
     private BufferedImage activeSprite;
 
-    private CelestialBodyType type;
-
-
     public CelestialBody(int x, int y, CelestialBodyType type) {
         super(x, y, 300, 300);
-        type = type;
         try {
             if (redPlanetSprite == null) {
                 redPlanetSprite = ImageIO.read(new File(RED_PLANET_FILE));
@@ -38,35 +34,36 @@ public class CelestialBody extends BackgroundObject {
         }
 
         switch (type) {
-        case RED_PLANET:
-            activeSprite = redPlanetSprite;
-            break;
-        case BLUE_PLANET:
-            activeSprite = bluePlanetSprite;
-            break;
-        case SUN:
-            activeSprite = sunSprite;
-            break;
-        default:
-            activeSprite = bluePlanetSprite;
-            break;
+            case RED_PLANET:
+                activeSprite = redPlanetSprite;
+                break;
+            case BLUE_PLANET:
+                activeSprite = bluePlanetSprite;
+                break;
+            case SUN:
+                activeSprite = sunSprite;
+                break;
+            default:
+                activeSprite = bluePlanetSprite;
+                break;
         }
 
     }
 
     @Override
     public void draw(Graphics g) {
-        g.drawImage(activeSprite, this.getXPixel(), this.getYPixel(), this.getWidth(), this.getHeight(),
-                null);
+        g.drawImage(activeSprite, this.getXPixel(), this.getYPixel(), this.getWidth(),
+                this.getHeight(), null);
 
     }
-    
+
+    //Returns a random celestial body type
     public static CelestialBodyType randomBody() {
-        
+
         int choice = (int) (Math.random() * CelestialBodyType.values().length);
-        
+
         return CelestialBodyType.values()[choice];
-        
+
     }
 
 }

@@ -1,13 +1,12 @@
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Paths;
 
-public class GameFileParser {
+public class GameFileLayer {
 
     BufferedReader reader;
 
@@ -104,7 +103,6 @@ public class GameFileParser {
             int systemXCoord = i % 10;
             int systemYCoord = i / 10;
 
-            System.out.println(systemXCoord + ", " + systemYCoord);
             String name = "", type = "";
             boolean discovered = false;
             int ironSupply = 0, silverSupply = 0, goldSupply = 0, repairCost = 0, refuelCost = 0,
@@ -177,16 +175,20 @@ public class GameFileParser {
 
             switch (type) {
                 case "EMPTY":
-                    loadedGalaxy[systemYCoord][systemXCoord] = new PlanetarySystem(name,discovered, court);
+                    loadedGalaxy[systemYCoord][systemXCoord] = new PlanetarySystem(name,discovered,
+                            court);
                     break;
                 case "NEBULA":
-                    loadedGalaxy[systemYCoord][systemXCoord] = new NebulaSystem(name,discovered, court);
+                    loadedGalaxy[systemYCoord][systemXCoord] = new NebulaSystem(name,discovered,
+                            court);
                     break;
                 case "ASTEROID":
-                    loadedGalaxy[systemYCoord][systemXCoord] = new AsteroidBeltSystem(name, discovered, court);
+                    loadedGalaxy[systemYCoord][systemXCoord] = new AsteroidBeltSystem(name, discovered,
+                            court);
                     break;
                 case "OUTPOST":
-                    loadedGalaxy[systemYCoord][systemXCoord] = new OutpostSystem(name, court, ironValue,
+                    loadedGalaxy[systemYCoord][systemXCoord] = new OutpostSystem(name, court, 
+                            ironValue,
                             silverValue, goldValue, ironSupply, silverSupply, goldSupply, shopCredits,
                             repairCost, refuelCost, hullUpgradeCredit, hullUpgradeIron,
                             fuelUpgradeCredit, fuelUpgradeIron, powerUpgradeCredit, powerUpgradeGold,

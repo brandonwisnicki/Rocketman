@@ -41,7 +41,7 @@ public abstract class Entity extends GameObject {
     /* Directional Angle: number of degrees under the horizontal facing left */
     private float directionalAngle;
 
-    /* Spin Velocity: number of degrees to move everytime move() is called */
+    /* Spin Velocity: number of degrees to move every time move() is called */
     private float spinVelocity;
 
     /*
@@ -54,6 +54,7 @@ public abstract class Entity extends GameObject {
     private int courtHeight;
     private int courtWidth;
 
+    // Collision Box: The polygon that defines the space that an Entity takes up in the scene
     private CollisionBox cb;
 
     /**
@@ -194,6 +195,8 @@ public abstract class Entity extends GameObject {
         this.velocity.add(velocity, this.maxVelocity);
     }
     
+    // Entities generally have no action attached to
+    // hitting the scene walls
     public void handleHitWall() {
         return;
     }
@@ -219,6 +222,8 @@ public abstract class Entity extends GameObject {
         that.setVelocity(oldVel);
     }
 
+    //Any extra updates needed for an entity not called in move()
+    //Most entities don't have extra update() needs
     public void update() {
         return;
     };
@@ -274,6 +279,12 @@ public abstract class Entity extends GameObject {
         }
     }
 
+    /**
+     * Returns a boolean regarding if the entity is outside
+     * of bounds of the scene.
+     * There exists a boundsTolerance to make sure that the
+     * entire object is out of bounds when this returns true
+     */
     public boolean isOutOfBounds() {
         if (this.getXPixel() + this.getWidth() + boundsTolerance < 0) {
             return true;
@@ -290,6 +301,10 @@ public abstract class Entity extends GameObject {
 
     }
 
+    /**
+     * This is for debugging purposes.
+     * Draws the four corners of a hitbox for entities
+     */
     public void drawHitbox(Graphics g) {
         int[][] positions = this.getCollisionBox().getCornerLocations();
 
@@ -302,9 +317,6 @@ public abstract class Entity extends GameObject {
     }
 
     public abstract Entity deepCopy();
-
-  
-
 
     public abstract Collection<Entity> getSelfAndChildren();
 

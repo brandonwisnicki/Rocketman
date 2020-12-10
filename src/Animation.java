@@ -13,10 +13,14 @@ public abstract class Animation extends GameObject {
 
     // ticks per frame
     private int tpf;
+    
+    //current tick to help keep track of which image to play
     private int step;
 
+    //should animation loop after finished
     private boolean loop;
 
+    //if not looping, is the animation finished and can be disposed of
     private boolean finished;
 
     public Animation(int x, int y, int width, int height, String[] filePaths, int tpf,
@@ -41,6 +45,7 @@ public abstract class Animation extends GameObject {
 
     }
 
+    //Gets current animation frame to draw and draws it
     @Override
     public void draw(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
@@ -68,6 +73,7 @@ public abstract class Animation extends GameObject {
         step++;
     }
 
+    //Get array of all the frames in a specific animation
     public abstract BufferedImage[] getFrames();
 
 }
