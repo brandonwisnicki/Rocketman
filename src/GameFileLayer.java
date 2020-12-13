@@ -183,16 +183,16 @@ public class GameFileLayer {
                             court);
                     break;
                 case "ASTEROID":
-                    loadedGalaxy[systemYCoord][systemXCoord] = new AsteroidBeltSystem(name, discovered,
-                            court);
+                    loadedGalaxy[systemYCoord][systemXCoord] = new AsteroidBeltSystem(name, 
+                            discovered, court);
                     break;
                 case "OUTPOST":
                     loadedGalaxy[systemYCoord][systemXCoord] = new OutpostSystem(name, court, 
                             ironValue,
-                            silverValue, goldValue, ironSupply, silverSupply, goldSupply, shopCredits,
-                            repairCost, refuelCost, hullUpgradeCredit, hullUpgradeIron,
-                            fuelUpgradeCredit, fuelUpgradeIron, powerUpgradeCredit, powerUpgradeGold,
-                            discovered);
+                            silverValue, goldValue, ironSupply, silverSupply, goldSupply,
+                            shopCredits, repairCost, refuelCost, hullUpgradeCredit, hullUpgradeIron,
+                            fuelUpgradeCredit, fuelUpgradeIron, powerUpgradeCredit,
+                            powerUpgradeGold, discovered);
                     break;
                 default:
                     break;

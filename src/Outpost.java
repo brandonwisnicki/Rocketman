@@ -4,7 +4,6 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.Collection;
 
 import javax.imageio.ImageIO;
 
@@ -63,26 +62,15 @@ public class Outpost extends Entity {
 
     @Override
     public Entity deepCopy() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public void handleHitWall() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void update() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public Collection<Entity> getSelfAndChildren() {
-        // TODO Auto-generated method stub
-        return null;
+        return new Outpost(this.getXPixel(), this.getYPixel(), this.court,
+                this.getShop().getIronValue(), this.getShop().getSilverValue(),
+                this.getShop().getGoldValue(), this.getShop().getIronSupply(),
+                this.getShop().getSilverSupply(), this.getShop().getGoldSupply(),
+                this.getShop().getCredits(), this.getShop().getCostPerHP(),
+                this.getShop().getCostPerGallon(), this.getShop().getHullUpgradeCreditCost(),
+                this.getShop().getHullUpgradeIronCost(), this.getShop().getFuelUpgradeCreditCost(),
+                this.getShop().getFuelUpgradeIronCost(), this.getShop().getPowerUpgradeCreditCost(),
+                this.getShop().getPowerUpgradeGoldCost());
     }
 
     @Override
@@ -105,12 +93,6 @@ public class Outpost extends Entity {
 
     public boolean isAccessible() {
         return canLand;
-    }
-
-    @Override
-    public boolean shouldDispose() {
-        // TODO Auto-generated method stub
-        return false;
     }
 
     @Override

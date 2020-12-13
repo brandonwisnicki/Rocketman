@@ -9,8 +9,6 @@ import javax.imageio.ImageIO;
 
 public abstract class Animation extends GameObject {
 
-    private static BufferedImage[] frames;
-
     // ticks per frame
     private int tpf;
     

@@ -248,7 +248,7 @@ public class Ship extends Entity {
                 (int) (this.getCenterX() + (SIZE * Math.cos(this.getRotationalAngle()))),
                 (int) (this.getCenterY() - (SIZE / 2)
                         + (SIZE * Math.sin(this.getRotationalAngle()))),
-                this.getCourtWidth(), this.getCourtHeight(), court);
+                 court);
 
         laserEntities.add(newLaser);
 

@@ -32,7 +32,6 @@ public class GameCourt extends JPanel {
 
     private GameState state = GameState.NORMAL; // the state the game is in
     private JLabel status; // Current status text, i.e. "Running..."
-    private JFrame frame; // Top-level frame component
 
     // Game constants
     public static final int COURT_WIDTH = 1024;
@@ -54,7 +53,7 @@ public class GameCourt extends JPanel {
     private BufferedImage winScreen;
     private static final String WIN_SCREEN_PATH = "files/dubscreen.png";
 
-    public GameCourt(JFrame frame, JLabel status) {
+    public GameCourt(JLabel status) {
         // creates border around the court area, JComponent method
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
@@ -202,7 +201,6 @@ public class GameCourt extends JPanel {
         });
 
         this.status = status;
-        this.frame = frame;
         this.galaxy = new PlanetarySystem[10][10];
     }
 

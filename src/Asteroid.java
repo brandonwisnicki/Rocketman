@@ -5,8 +5,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
-
 import javax.imageio.ImageIO;
 
 public class Asteroid extends Entity {
@@ -160,12 +158,6 @@ public class Asteroid extends Entity {
 
     }
 
-    @Override
-    public Collection<Entity> getSelfAndChildren() {
-        ArrayList<Entity> allEntities = new ArrayList<Entity>();
-        allEntities.add(this);
 
-        return allEntities;
-    }
 
 }

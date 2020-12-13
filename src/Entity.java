@@ -318,7 +318,12 @@ public abstract class Entity extends GameObject {
 
     public abstract Entity deepCopy();
 
-    public abstract Collection<Entity> getSelfAndChildren();
+    public Collection<Entity> getSelfAndChildren() {
+        ArrayList<Entity> allEntities = new ArrayList<Entity>();
+        allEntities.add(this);
+
+        return allEntities;
+    }
 
     public abstract void checkCollisions();
 

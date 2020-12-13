@@ -52,10 +52,12 @@ public class Shop extends GameObject {
         ironValue = court.getEconomy().getIronPrice();
         silverValue = court.getEconomy().getSilverPrice();
         goldValue = court.getEconomy().getGoldPrice();
+        
 
         ironSupply = court.getEconomy().getIronSupply();
         silverSupply = court.getEconomy().getSilverSupply();
         goldSupply = court.getEconomy().getGoldSupply();
+        
 
         credits = (int) (Math.random() * 9000 + 1000);
 
@@ -121,7 +123,7 @@ public class Shop extends GameObject {
         if (invIron == null) {
             return 0;
         }
-        return Math.min(invIron.getAmount(), ironSupply) * ironValue;
+        return Math.min(invIron.getAmount() * ironValue, this.credits);
     }
 
     public int getMaxSilverSellPrice() {
@@ -129,7 +131,7 @@ public class Shop extends GameObject {
         if (invSilver == null) {
             return 0;
         }
-        return Math.min(invSilver.getAmount(), silverSupply) * silverValue;
+        return Math.min(invSilver.getAmount() * silverValue, this.credits);
     }
 
     public int getMaxGoldSellPrice() {
@@ -137,7 +139,7 @@ public class Shop extends GameObject {
         if (invGold == null) {
             return 0;
         }
-        return Math.min(invGold.getAmount(), goldSupply) * goldValue;
+        return Math.min(invGold.getAmount() * goldValue, this.credits);
     }
 
     public int getRepairPrice() {
@@ -162,8 +164,9 @@ public class Shop extends GameObject {
         }
         this.court.getPlayerShip().addCredits(-total);
         addCredits(total);
+        this.ironSupply -= amount;
         this.court.getPlayerShip().addItem(new Iron(amount));
-        return "Bought " + amount + " iron for " + total + "¤";
+        return "Bought " + amount + " iron for " + total + "$";
     }
 
     public String buySilver(int amount) {
@@ -177,8 +180,9 @@ public class Shop extends GameObject {
         }
         this.court.getPlayerShip().addCredits(-total);
         addCredits(total);
+        this.silverSupply -= amount;
         this.court.getPlayerShip().addItem(new Silver(amount));
-        return "Bought " + amount + " iron for " + total + "¤";
+        return "Bought " + amount + " iron for " + total + "$";
     }
 
     public String buyGold(int amount) {
@@ -192,8 +196,9 @@ public class Shop extends GameObject {
         }
         this.court.getPlayerShip().addCredits(-total);
         addCredits(total);
+        this.goldSupply -= amount;
         this.court.getPlayerShip().addItem(new Gold(amount));
-        return "Bought " + amount + " gold for " + total + "¤";
+        return "Bought " + amount + " gold for " + total + "$";
     }
 
     public String sellIron(int amount) {
@@ -216,7 +221,7 @@ public class Shop extends GameObject {
         this.ironSupply += amount;
         this.court.getPlayerShip().addItem(new Iron(-amount));
 
-        return "Sold " + amount + " iron for " + total + "¤";
+        return "Sold " + amount + " iron for " + total + "$";
     }
 
     public String sellSilver(int amount) {
@@ -238,7 +243,7 @@ public class Shop extends GameObject {
         addCredits(-total);
         this.silverSupply += amount;
         this.court.getPlayerShip().addItem(new Silver(-amount));
-        return "Sold " + amount + " silver for " + total + "¤";
+        return "Sold " + amount + " silver for " + total + "$";
     }
 
     public String sellGold(int amount) {
@@ -259,7 +264,7 @@ public class Shop extends GameObject {
         addCredits(-total);
         this.goldSupply += amount;
         this.court.getPlayerShip().addItem(new Gold(-amount));
-        return "Sold " + amount + " gold for " + total + "¤";
+        return "Sold " + amount + " gold for " + total + "$";
     }
 
     public String repairShip() {
@@ -357,46 +362,46 @@ public class Shop extends GameObject {
 
         g.setColor(Color.WHITE);
 
-        g.drawString("Bazaar Credits: " + credits + " ¤", 350, 60);
+        g.drawString("Bazaar Credits: " + credits + " $", 350, 60);
 
         // Fix Ship
-        g.drawString(this.getRepairPrice() + " ¤", 400, 230);
+        g.drawString(this.getRepairPrice() + " $", 400, 230);
 
         // Refuel
-        g.drawString(this.getRefuelPrice() + " ¤", 520, 230);
+        g.drawString(this.getRefuelPrice() + " $", 520, 230);
 
         // Upgrade Hull
-        g.drawString(this.hullUpgradeCreditCost + " ¤", 620, 215);
+        g.drawString(this.hullUpgradeCreditCost + " $", 620, 215);
         g.drawString(this.hullUpgradeIronCost + " Iron Ore", 620, 230);
 
         // Upgrade Fuel Tank
-        g.drawString(this.fuelUpgradeCreditCost + " ¤", 725, 215);
+        g.drawString(this.fuelUpgradeCreditCost + " $", 725, 215);
         g.drawString(this.fuelUpgradeIronCost + " Iron Ore", 725, 230);
 
         // Upgrade Power
-        g.drawString(this.powerUpgradeCreditCost + " ¤", 850, 215);
+        g.drawString(this.powerUpgradeCreditCost + " $", 850, 215);
         g.drawString(this.powerUpgradeGoldCost + " Gold Ore", 850, 230);
 
         // Iron Ore
-        g.drawString((ironValue * Math.min(10, ironSupply)) + " ¤", 423, 438);
-        g.drawString(ironValue + " ¤", 423, 454);
-        g.drawString(getMaxIronSellPrice() + " ¤", 440, 470);
+        g.drawString((ironValue * Math.min(10, ironSupply)) + " $", 423, 438);
+        g.drawString(ironValue + " $", 423, 454);
+        g.drawString(getMaxIronSellPrice() + " $", 440, 470);
         // Silver Ore
 
-        g.drawString((silverValue * Math.min(10, silverSupply)) + " ¤", 560, 438);
-        g.drawString(silverValue + " ¤", 560, 454);
-        g.drawString(getMaxSilverSellPrice() + " ¤", 574, 470);
+        g.drawString((silverValue * Math.min(10, silverSupply)) + " $", 560, 438);
+        g.drawString(silverValue + " $", 560, 454);
+        g.drawString(getMaxSilverSellPrice() + " $", 574, 470);
 
         // Gold Ore
 
-        g.drawString((goldValue * Math.min(10, goldSupply)) + " ¤", 695, 438);
-        g.drawString(goldValue + " ¤", 695, 454);
-        g.drawString(getMaxGoldSellPrice() + " ¤", 710, 470);
+        g.drawString((goldValue * Math.min(10, goldSupply)) + " $", 695, 438);
+        g.drawString(goldValue + " $", 695, 454);
+        g.drawString(getMaxGoldSellPrice() + " $", 710, 470);
 
         // Sell All
 
         g.drawString(
-                (getMaxGoldSellPrice() + getMaxSilverSellPrice() + getMaxIronSellPrice()) + " ¤",
+                (getMaxGoldSellPrice() + getMaxSilverSellPrice() + getMaxIronSellPrice()) + " $",
                 827, 449);
 
     }

@@ -120,7 +120,7 @@ public class PlayerInfo extends UserInterface {
                 player.getMaxPower(), 2f, 5, 2);
 
         g.setColor(this.getTextColor());
-        g.drawString("> Credits: " + this.player.getCredits() + " ¤", this.getXPixel() + 10,
+        g.drawString("> Credits: " + this.player.getCredits() + " $", this.getXPixel() + 10,
                 this.getYPixel() + 115);
 
         drawInventory(g, this.player.getInventory(), this.getXPixel() + 10, this.getYPixel() + 120);

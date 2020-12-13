@@ -4,8 +4,6 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
-import java.util.ArrayList;
-import java.util.Collection;
 
 public class Laser extends Entity {
 
@@ -18,10 +16,10 @@ public class Laser extends Entity {
     private static final int MAX_DISPOSE_BUFFER = 3;
     private int disposeBuffer;
 
-    public Laser(Vector velocity, Color color, int px, int py, int courtWidth, int courtHeight,
-            GameCourt court) {
+    public Laser(Vector velocity, Color color, int px, int py, GameCourt court) {
         super(velocity.getMagnitude(), velocity.getAngle(), px, py, LASER_WIDTH, LASER_HEIGHT,
-                courtWidth, courtHeight, velocity.getAngle(), 0.0f, 0.0f, 0.0f, 0.0f, 100.0f);
+                court.getWidth(), court.getCourtHeight(), velocity.getAngle(), 0.0f, 0.0f, 0.0f,
+                0.0f, 100.0f);
         this.color = color;
         this.court = court;
         this.disposeBuffer = 0;
@@ -29,14 +27,8 @@ public class Laser extends Entity {
 
     @Override
     public Entity deepCopy() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public void handleHitWall() {
-        // TODO Auto-generated method stub
-
+        return new Laser(new Vector(this.getVelocity(), this.getVelocityAngle()), this.color,
+                this.getXPixel(), this.getYPixel(), this.court);
     }
 
     @Override
@@ -59,11 +51,6 @@ public class Laser extends Entity {
     }
 
     @Override
-    public void update() {
-
-    }
-
-    @Override
     public void checkCollisions() {
         for (Entity e : court.getAllEntities()) {
             if (disposeBuffer == 0 && e instanceof Asteroid && !(e.equals(this))
@@ -82,14 +69,6 @@ public class Laser extends Entity {
         }
 
         return disposeBuffer > MAX_DISPOSE_BUFFER;
-    }
-
-    @Override
-    public Collection<Entity> getSelfAndChildren() {
-        ArrayList<Entity> allEntities = new ArrayList<Entity>();
-        allEntities.add(this);
-
-        return allEntities;
     }
 
 }

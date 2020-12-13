@@ -27,17 +27,17 @@ public class Game implements Runnable {
         status_panel.add(status);
 
         // Main playing area
-        final GameCourt court = new GameCourt(frame, status);
+        final GameCourt court = new GameCourt(status);
         frame.add(court, BorderLayout.CENTER);
 
-        //Layer that allows for IO for saving/loading games
+        // Layer that allows for IO for saving/loading games
         GameFileLayer parser = new GameFileLayer();
 
         // Reset button
         final JPanel control_panel = new JPanel();
         frame.add(control_panel, BorderLayout.NORTH);
 
-        //Instruction panels
+        // Instruction panels
         final JButton help = new JButton("Instructions");
         help.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -45,19 +45,18 @@ public class Game implements Runnable {
                         "Welcome to Rocketman. "
                                 + "\nUse WASD or arrow keys to move. \nPress SPACE to attack. "
                                 + "\nPress E while near a space station to enter the bazaar.",
-                                "Controls", JOptionPane.INFORMATION_MESSAGE);
+                        "Controls", JOptionPane.INFORMATION_MESSAGE);
                 JOptionPane.showMessageDialog(null,
                         "You are lost in space with nothing but your ship and a few credits."
                                 + "\n You must find your way back home."
                                 + "\n There are rumors that you can hire a "
                                 + "navigator for 50,000 credits to help you get home.",
-                                "Story", JOptionPane.PLAIN_MESSAGE);
+                        "Story", JOptionPane.PLAIN_MESSAGE);
                 JOptionPane.showMessageDialog(null,
                         "Destroy asteroids for raw materials."
                                 + "\nVisit outposts to trade, sell, and upgrade your ship."
                                 + "\nBe careful out there!",
-                                "Gameplay",
-                                JOptionPane.PLAIN_MESSAGE);
+                        "Gameplay", JOptionPane.PLAIN_MESSAGE);
                 court.requestFocusInWindow();
 
             }
@@ -78,7 +77,7 @@ public class Game implements Runnable {
         });
         control_panel.add(reset);
 
-        //Saves game data to a file
+        // Saves game data to a file
         final JButton save = new JButton("Save");
         save.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -89,7 +88,7 @@ public class Game implements Runnable {
                     court.requestFocusInWindow();
                     return;
                 }
-                
+
                 if (court.getState() == GameState.WIN) {
                     JOptionPane.showMessageDialog(null, "No need to save, you beat the game!",
                             "Can't Save", JOptionPane.ERROR_MESSAGE);
@@ -101,12 +100,12 @@ public class Game implements Runnable {
                 int selection = fileChooser.showSaveDialog(null);
 
                 if (selection == JFileChooser.APPROVE_OPTION) {
-                    status.setText(fileChooser.getSelectedFile().getAbsolutePath());
+                    status.setText(fileChooser.getSelectedFile().getAbsolutePath() + ".space");
 
                     String data = parser.gameDataToText(court.getGalaxy(), court.getCurrentX(),
                             court.getCurrentY(), court.getPlayerShip());
                     parser.saveGameDataToFile(data,
-                            fileChooser.getSelectedFile().getAbsolutePath());
+                            fileChooser.getSelectedFile().getAbsolutePath() + ".space");
                 }
 
                 court.requestFocusInWindow();
@@ -114,17 +113,17 @@ public class Game implements Runnable {
         });
         control_panel.add(save);
 
-        //Loads game data from file
+        // Loads game data from file
         final JButton load = new JButton("Load");
         load.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JFileChooser fileChooser = new JFileChooser();
-                int selection = fileChooser.showSaveDialog(null);
+                int selection = fileChooser.showOpenDialog(null);
 
                 if (selection == JFileChooser.APPROVE_OPTION) {
                     status.setText(fileChooser.getSelectedFile().getAbsolutePath());
-                    String txt = parser
-                            .getTextFromFile(fileChooser.getSelectedFile().getAbsolutePath());
+                    String txt = parser.getTextFromFile(
+                            fileChooser.getSelectedFile().getAbsolutePath());
                     try {
                         parser.loadTextToGameData(txt, court);
                     } catch (Exception exception) {
