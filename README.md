@@ -1,7 +1,5 @@
 # Rocketman
 
-Built for CIS120's Final Project.
-
 Using Java's graphics libraries, I built a basic 2D space game with functional exploration, an economy, and mining. 
 
 Using WASD or arrow keys and space bar to use your hardpoints, you can control your space ship across the 100 randomly generated galaxies to destroy asteroids to collect resources, trade in space ports, and upgrade your ship.
