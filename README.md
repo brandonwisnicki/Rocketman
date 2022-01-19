@@ -1,5 +1,5 @@
 
-#### "And I think it's gonna be a long long time
+#### 🎵 And I think it's gonna be a long long time
 
 #### 'Till touch down brings me round again to find
 
@@ -8,7 +8,7 @@
 
 #### Oh no no no I'm a rocket man
 
-#### Rocket man burning out his fuse up here alone" 
+#### Rocket man burning out his fuse up here alone 🎵
 
 
 # Rocketman
