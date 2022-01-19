@@ -1,5 +1,12 @@
 # Rocketman
 
+"And I think it's gonna be a long long time
+'Till touch down brings me round again to find
+I'm not the man they think I am at home
+Oh no no no I'm a rocket man
+Rocket man burning out his fuse up here alone"
+
+
 Using Java's graphics libraries, I built a basic 2D space game with functional exploration, an economy, and mining. 
 
 Using WASD or arrow keys and space bar to use your hardpoints, you can control your space ship across the 100 randomly generated galaxies to destroy asteroids to collect resources, trade in space ports, and upgrade your ship.
